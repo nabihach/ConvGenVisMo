@@ -18,12 +18,12 @@ class ConGenVismoEval():
   
   def read_img(self,
                img):
-    return np.array(Image.open(img))
+    return np.array(Image.open(img).convert("RGB"))
 
   def resize(self,
              img_np,
              size):
-    return sewar.no_ref.imresize(img_np, size)
+    return sewar.no_ref.imresize(img_np, (size[1],size[0]))
   
   def read_same_size(self,
                      img_yt,
@@ -89,7 +89,7 @@ class ConGenVismoEval():
   def object_detector(self,
                       img
                       ):
-    img = Image.open(img)
+    img = Image.open(img).convert("RGB")
     inputs = self.__dtr_processor(images=img, return_tensors="pt")
     outputs = self.__dtr(**inputs)
 
