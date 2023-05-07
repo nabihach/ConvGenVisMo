@@ -102,16 +102,28 @@ class ConGenVismoEval():
   def element_presence_pr(self,
                           elements_yt,
                           elements_yhat):
+    if sum(elements_yhat.values()) == 0:
+      if len(elements_yt & elements_yhat) == 0:
+        return 1
+      else:
+        return 0
     return len(elements_yt & elements_yhat) / sum(elements_yhat.values())
   
   def element_presence_re(self,
                           elements_yt,
                           elements_yhat):
+    if sum(elements_yt.values()) == 0:
+      if len(elements_yt & elements_yhat) == 0:
+        return 1
+      else:
+        return 0
     return len(elements_yt & elements_yhat) / sum(elements_yt.values())
   
   def element_presence_f1(self,
                           element_presence_pr,
                           element_presence_re):
+    if (element_presence_pr + element_presence_re) == 0:
+      return 0
     return ((element_presence_pr * element_presence_re)*2)/(element_presence_pr + element_presence_re)
   
   def element_presence_scores(self,
