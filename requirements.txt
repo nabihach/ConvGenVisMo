@@ -2,3 +2,6 @@ sentence-transformers
 brisque
 sewar
 timm
+matplotlib
+openai
+pip install stability-sdk
