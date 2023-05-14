@@ -6,6 +6,10 @@ from brisque import BRISQUE
 import sewar
 from transformers import DetrImageProcessor, DetrForObjectDetection
 import torch
+import pandas as pd
+import seaborn as sns
+from scipy import interpolate
+import matplotlib.pyplot as plt
 
 class ConGenVismoEval():
   def __init__(self):
@@ -125,6 +129,43 @@ class ConGenVismoEval():
     if (element_presence_pr + element_presence_re) == 0:
       return 0
     return ((element_presence_pr * element_presence_re)*2)/(element_presence_pr + element_presence_re)
+  
+  def interpolation(self,
+                    y):
+    if len(y) > 2:
+      kind = "linear"
+    elif len(y) == 1:
+      return [], [], np.array([y for _ in range(20)]).reshape((-1))
+    else:
+      kind = "linear"
+    x = np.linspace(0, 1,len(y))
+    x_new = np.linspace(0, 1, 20)
+    f2 = interpolate.interp1d(x, y, kind = kind)
+    return x, x_new, f2(x_new)
+  
+  def draw(self,
+           score_name):
+    all = []
+    for i in all_scores.keys():
+      if type(score_name) != list:
+        y = all_scores[i][score_name]
+        y_axis = score_name
+      else:
+        y = [_[score_name[1]] for _ in all_scores[i][score_name[0]]]
+        y_axis = score_name[1]
+      if len(y) > 0:
+        x, x_new, y_new = self.interpolation(y)
+        all.append(y_new)
+    all_np = np.array(all)
+    df = pd.DataFrame(all_np).melt()
+    df.columns = ["hop", y_axis]
+    fig, ax = plt.subplots()
+    sns.lineplot(x="hop", y=y_axis, data=df, ax = ax)
+    ax.set_xlim(0,19)
+    ax.set_xticks(range(1,20,2))
+    ax.set_xticklabels([round(i*0.1,1) for i in range(1,11)])
+    plt.savefig(y_axis+".pdf")
+    plt.show()
   
   def element_presence_scores(self,
                               img_yt,
