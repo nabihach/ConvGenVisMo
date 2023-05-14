@@ -5,3 +5,5 @@ timm
 matplotlib
 openai
 pip install stability-sdk
+scipy
+seaborn
