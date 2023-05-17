@@ -1,3 +1,4 @@
+from matplotlib.figure import NonGuiException
 from PIL import Image
 from collections import Counter
 from sentence_transformers import SentenceTransformer, util
@@ -181,3 +182,49 @@ class ConGenVismoEval():
             "img_yhat": elements_yhat
         }
     }
+  def get_bbox(self,img):
+    c, result = self.object_detector(img)
+    size = Image.open(img).convert("RGB").size
+    grouped_result = {
+    }
+    for label, box in zip(result["labels"].detach().numpy(),
+                          result["boxes"].detach().numpy()):
+      r_label = eval._ConGenVismoEval__dtr.config.id2label[label]
+      if label in grouped_result.keys():
+        grouped_result[r_label].append(box)
+      else:
+        grouped_result[r_label] = [box]
+    new_grouped_result = {}
+    for key in grouped_result.keys():
+      boxes = []
+      for box in grouped_result[key]:
+        box = np.array([box[0]/size[0],
+                        box[1]/size[1],
+                        box[2]/size[0],
+                        box[3]/size[1]])
+        boxes.append((box*512).astype(int))
+      new_grouped_result[key] = boxes
+    return new_grouped_result
+
+  def get_iou(self,
+              img_yt,
+              img_yh):
+    results_yt = self.get_bbox(img_yt)
+    resutls_yh = self.get_bbox(img_yh)
+    common_objects = set(results_yt.keys()).intersection(set(resutls_yh.keys()))
+
+    iou = []
+    if len(common_objects) == 0:
+      return None
+    for common_object in common_objects:
+      zero_yt = np.zeros((512,512))
+      zero_yh = np.zeros((512,512))
+      for bbox in results_yt[common_object]:
+        zero_yt[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
+      for bbox in resutls_yh[common_object]:
+        zero_yh[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
+      c = np.sum((zero_yh * zero_yt)> 0)
+      s = np.sum((zero_yh + zero_yt)> 0)
+      iou.append(c/s)
+
+    return np.mean(iou)
