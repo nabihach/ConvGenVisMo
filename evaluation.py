@@ -13,13 +13,16 @@ from scipy import interpolate
 import matplotlib.pyplot as plt
 
 class ConGenVismoEval():
-  def __init__(self):
+  def __init__(self,
+              dtr_resnet = "101"):
     """Loads the respective models required for the evaluation.
+    For element presense please use dtr_resnet = '50', and for
+    iou please use '101'.
     """
     self.__clip = SentenceTransformer('clip-ViT-B-32')
     self.__brisque = BRISQUE(url=False)
-    self.__dtr_processor = processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50")
-    self.__dtr = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50")
+    self.__dtr_processor = processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-{dtr_version}")
+    self.__dtr = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-{dtr_version}")
   
   def read_img(self,
                img):
@@ -206,16 +209,17 @@ class ConGenVismoEval():
       new_grouped_result[key] = boxes
     return new_grouped_result
 
-  def get_iou(self,
-              img_yt,
-              img_yh):
-    results_yt = self.get_bbox(img_yt)
-    resutls_yh = self.get_bbox(img_yh)
-    common_objects = set(results_yt.keys()).intersection(set(resutls_yh.keys()))
+def iou_score(self,
+            img_yt,
+            img_yh):
+  results_yt = get_bbox(img_yt)
+  resutls_yh = get_bbox(img_yh)
+  common_objects = set(results_yt.keys()).intersection(set(resutls_yh.keys()))
 
-    iou = []
-    if len(common_objects) == 0:
-      return None
+  iou_common = []
+  if len(common_objects) == 0:
+    iou_common = [0]
+  else:
     for common_object in common_objects:
       zero_yt = np.zeros((512,512))
       zero_yh = np.zeros((512,512))
@@ -225,6 +229,48 @@ class ConGenVismoEval():
         zero_yh[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
       c = np.sum((zero_yh * zero_yt)> 0)
       s = np.sum((zero_yh + zero_yt)> 0)
-      iou.append(c/s)
+      iou_common.append(c/s)
 
-    return np.mean(iou)
+  iou_common = np.mean(iou_common) if len(iou_common) > 0 else 0.0
+
+  iou_precision = []
+  common_objects = set(resutls_yh.keys())
+  objects_yt = set(results_yt.keys())
+  for common_object in common_objects:
+    if common_object in objects_yt:
+      zero_yt = np.zeros((512,512))
+      zero_yh = np.zeros((512,512))
+      for bbox in results_yt[common_object]:
+        zero_yt[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
+      for bbox in resutls_yh[common_object]:
+        zero_yh[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
+      c = np.sum((zero_yh * zero_yt)> 0)
+      s = np.sum((zero_yh + zero_yt)> 0)
+      iou_precision.append(c/s)
+    else:
+      iou_precision.append(0)
+  iou_precision = np.mean(iou_precision) if len(iou_precision) > 0 else 0.0
+  
+  iou_recall = []
+  common_objects = set(results_yt.keys())
+  objects_yh = set(resutls_yh.keys())
+  for common_object in common_objects:
+    if common_object in objects_yh:
+      zero_yt = np.zeros((512,512))
+      zero_yh = np.zeros((512,512))
+      for bbox in results_yt[common_object]:
+        zero_yt[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
+      for bbox in resutls_yh[common_object]:
+        zero_yh[bbox[1]:bbox[3],bbox[0]:bbox[2]] = 1
+      c = np.sum((zero_yh * zero_yt)> 0)
+      s = np.sum((zero_yh + zero_yt)> 0)
+      iou_recall.append(c/s)
+    else:
+      iou_recall.append(0)
+  iou_recall = np.mean(iou_recall) if len(iou_recall) > 0 else 0.0
+
+  return {
+      "common": iou_common,
+      "precision": iou_precision,
+      "recall": iou_recall
+  }
