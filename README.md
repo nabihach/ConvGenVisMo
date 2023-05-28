@@ -10,7 +10,7 @@ To use evaluation you can simply follow example given in the `example_eval.py`.
 # Dataset
 Dataset is available in `dataset` directory. A `dataset.jsonl` file containing all the conversations with respective labels and images can be found in `dataset/images`.
 
-We are immensely grateful to the following individuals who graciously assisted us by sharing their captured photographs. We extend our sincerest thanks for their invaluable support.
+We express our gratitude to the following individuals who generously contributed by sharing their captured photographs with us. We extend our sincerest thanks for their invaluable support.
 
 [Dr. Maryam Tavakkoli](https://instagram.com/tavakkoli56?igshid=MzRlODBiNWFlZA==),
 [Dr. Mahdie Niknezhad](https://instagram.com/doctor_niknezhad_atfal?igshid=MzRlODBiNWFlZA==),
