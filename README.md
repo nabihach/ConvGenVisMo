@@ -17,7 +17,7 @@ We are immensely grateful to the following individuals who graciously assisted u
 [Ms. Zahra Hoseinpoor](https://instagram.com/zahra.hoseinpoor61?igshid=MzRlODBiNWFlZA==),
 [Ms. Haniye Hayati](https://instagram.com/haniye_hayati?igshid=MzRlODBiNWFlZA==),
 [Ms. Niloufar Khoshpasand](https://instagram.com/niloufar.fns?igshid=MzRlODBiNWFlZA==),
-[Ms. Mahnaz Razavi](https://instagram.com/kardely_art?igshid=MzRlODBiNWFlZA==)
+[Ms. Mahnaz Razavi](https://instagram.com/kardely_art?igshid=MzRlODBiNWFlZA==),
 [Ms. Maryam Nosrati](https://www.linkedin.com/in/maryam-nosrati-1aa672233)
 
 
