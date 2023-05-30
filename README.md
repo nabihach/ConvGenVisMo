@@ -24,3 +24,15 @@ We express our gratitude to the following individuals who generously contributed
 [Ms. Mahnaz Razavi](https://instagram.com/kardely_art?igshid=MzRlODBiNWFlZA==),
 [Ms. Maryam Nosrati](https://www.linkedin.com/in/maryam-nosrati-1aa672233)
 
+# Citation
+
+```latex
+@misc{khasmakhi2023convgenvismo,
+      title={ConvGenVisMo: Evaluation of Conversational Generative Vision Models}, 
+      author={Narjes Nikzad Khasmakhi and Meysam Asgari-Chenaghlu and Nabiha Asghar and Philipp Schaer and Dietlind Zühlke},
+      year={2023},
+      eprint={2305.17784},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
