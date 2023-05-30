@@ -1,4 +1,5 @@
 cff-version: 1.2.0
+type: dataset
 message: "If you use this dataset, please cite it as below."
 @misc{khasmakhi2023convgenvismo,
       title={ConvGenVisMo: Evaluation of Conversational Generative Vision Models}, 
