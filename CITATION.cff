@@ -1,9 +1,15 @@
 cff-version: 1.2.0
-@misc{khasmakhi2023convgenvismo,
-      title={ConvGenVisMo: Evaluation of Conversational Generative Vision Models}, 
-      author={Narjes Nikzad Khasmakhi and Meysam Asgari-Chenaghlu and Nabiha Asghar and Philipp Schaer and Dietlind Zühlke},
-      year={2023},
-      eprint={2305.17784},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Nikzad Khasmakhi"
+  given-names: "Narjes"
+- family-names: "Asgari-Chenaghlu"
+  given-names: "Meysam"
+- family-names: "Asghar"
+  given-names: "Nabiha"
+- family-names: "Schaer"
+  given-names: "Philipp"
+- family-names: "Zühlke"
+  given-names: "Dietlind"
+title: "ConvGenVisMo: Evaluation of Conversational Generative Vision Models"
+url: "https://arxiv.org/abs/2305.17784"
