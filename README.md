@@ -24,6 +24,8 @@ We express our gratitude to the following individuals who generously contributed
 [Ms. Mahnaz Razavi](https://instagram.com/kardely_art?igshid=MzRlODBiNWFlZA==),
 [Ms. Maryam Nosrati](https://www.linkedin.com/in/maryam-nosrati-1aa672233),
 [Ms Hadis Mostafaviyan](https://instagram.com/italk_ielts_group?igshid=MzRlODBiNWFlZA==)
+[Samira Najfvand](https://www.linkedin.com/in/samira-naj-466430173/)
+[Neda Sonboli](https://www.linkedin.com/in/neda-sonboli-750127197/)
 
 # Citation
 
