@@ -1,3 +1,4 @@
+cff-version: 1.2.0
 @misc{khasmakhi2023convgenvismo,
       title={ConvGenVisMo: Evaluation of Conversational Generative Vision Models}, 
       author={Narjes Nikzad Khasmakhi and Meysam Asgari-Chenaghlu and Nabiha Asghar and Philipp Schaer and Dietlind Zühlke},
